@@ -13,7 +13,7 @@ A full-stack kanban board to track job applications — built with the MERN stac
 
 | Service | URL |
 |---|---|
-| Frontend | https://jobapptracker-frontend.azurestaticapps.net |
+| Frontend | https://brave-bay-074abe710.7.azurestaticapps.net |
 | GraphQL API | https://jobapptracker-api.azurewebsites.net/graphql |
 
 ---
