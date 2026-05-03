@@ -1,4 +1,4 @@
-import { ApolloProvider } from "@apollo/client/react";
+import { ApolloProvider } from "@apollo/client";
 import client from "./services/apolloClient";
 import { JobProvider } from "./context/JobContext";
 import BoardPage from "./pages/BoardPage";
