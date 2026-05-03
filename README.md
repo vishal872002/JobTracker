@@ -39,7 +39,7 @@ Job hunting is messy — applications scattered across LinkedIn, Naukri, and com
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18, Apollo Client, dnd-kit, Vite |
+| Frontend | React 18, Apollo Client, dnd-kit, Create React App |
 | Backend | Node.js, Apollo Server, GraphQL |
 | Database | MongoDB Atlas, Mongoose |
 | Deployment | Azure Static Web Apps, Azure App Service |
@@ -52,31 +52,39 @@ Job hunting is messy — applications scattered across LinkedIn, Naukri, and com
 ```
 JobAppTracker/
 ├── client/
+│   ├── build/                          # Production build output
+│   ├── public/
 │   └── src/
 │       ├── components/
 │       │   ├── Board/
-│       │   │   ├── Board.jsx          # DnD context and drag logic
-│       │   │   ├── Column.jsx         # Droppable column
-│       │   │   └── JobCard.jsx        # Draggable job card
-│       │   ├── Modal/
-│       │   │   └── JobModal.jsx       # Add job form
-│       │   └── Dashboard/
-│       │       └── Stats.jsx          # Stats bar
+│       │   │   └── Board.jsx           # DnD context and drag logic
+│       │   ├── Column/
+│       │   │   └── Column.jsx          # Droppable column
+│       │   ├── Dashboard/
+│       │   │   └── Stats.jsx           # Stats bar
+│       │   ├── JobCard/
+│       │   │   └── JobCard.jsx         # Draggable job card
+│       │   └── JobModal/
+│       │       └── JobModal.jsx        # Add job form
 │       ├── context/
-│       │   └── JobContext.jsx         # Apollo hooks + global state
+│       │   └── JobContext.jsx          # Apollo hooks + global state
+│       ├── pages/
+│       │   └── BoardPage.jsx
 │       ├── services/
-│       │   ├── apolloClient.js        # Apollo Client setup
-│       │   └── queries.js             # All GQL queries & mutations
-│       └── pages/
-│           └── BoardPage.jsx
+│       │   ├── apolloClient.js         # Apollo Client setup
+│       │   └── queries.js              # All GQL queries & mutations
+│       ├── App.js
+│       ├── App.css
+│       ├── index.js
+│       └── index.css
 └── server/
     ├── graphql/
-    │   ├── typeDefs.js                # GraphQL schema
-    │   └── resolvers.js               # Query & mutation resolvers
+    │   ├── typeDefs.js                 # GraphQL schema
+    │   └── resolvers.js                # Query & mutation resolvers
     ├── models/
-    │   └── Job.js                     # Mongoose schema
+    │   └── Job.js                      # Mongoose schema
     └── db/
-        └── connect.js                 # MongoDB connection
+        └── connect.js                  # MongoDB connection
 ```
 
 ---
@@ -84,7 +92,7 @@ JobAppTracker/
 ## Getting Started
 
 ### Prerequisites
-- Node.js 22+
+- Node.js 18+
 - MongoDB Atlas account
 
 ### 1. Clone the repo
@@ -99,10 +107,9 @@ cd JobAppTracker
 ```bash
 cd server
 npm install
-cp .env.example .env
 ```
 
-Add your MongoDB URI to `.env`:
+Create a `.env` file in the `server` folder:
 
 ```
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/job-tracker
@@ -120,10 +127,10 @@ GraphQL playground: `http://localhost:5000/graphql`
 ```bash
 cd client
 npm install
-npm run dev
+npm start
 ```
 
-App runs at: `http://localhost:5173`
+App runs at: `http://localhost:3000`
 
 ---
 
@@ -181,9 +188,9 @@ mutation {
 
 ```
 Browser → Azure Static Web Apps (React)
-             ↓
-        Azure App Service (Apollo Server / GraphQL)
-             ↓
+               ↓
+     Azure App Service (Apollo Server / GraphQL)
+               ↓
         MongoDB Atlas (Database)
 ```
 
@@ -197,7 +204,7 @@ az group create --name JobAppTracker-rg --location centralus
 az appservice plan create \
   --name JobAppTracker-plan \
   --resource-group JobAppTracker-rg \
-  --sku FREE \
+  --sku B1 \
   --is-linux
 
 # Create web app
@@ -226,24 +233,19 @@ az webapp deployment source config-zip \
 
 ### Frontend — Azure Static Web Apps
 
-```bash
-# Build
-cd client
-npm run build
+1. Go to [portal.azure.com](https://portal.azure.com)
+2. Search **Static Web Apps** → **Create**
+3. Connect your GitHub repo
+4. Build settings:
+   - App location: `/client`
+   - Output location: `build`
+5. Click **Review + Create**
 
-# Install SWA CLI
-npm install -g @azure/static-web-apps-cli
-
-# Deploy
-swa deploy ./dist \
-  --resource-group JobAppTracker-rg \
-  --app-name jobapptracker-frontend \
-  --env production
-```
+Azure auto-generates a GitHub Actions workflow — every push to `main` triggers a new deployment.
 
 ### MongoDB Atlas — Network Access
 
-Go to **Atlas → Network Access → Add IP Address** and add `0.0.0.0/0` to allow connections from Azure.
+Go to **Atlas → Network Access → Add IP Address** → add `0.0.0.0/0` to allow Azure connections.
 
 ---
 
