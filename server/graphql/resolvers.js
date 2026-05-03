@@ -1,26 +1,12 @@
-import Job from "../models/Job.js";
+const Job = require("../models/Job");
 
-export const resolvers = {
+const resolvers = {
   Query: {
-    // Get all jobs, newest first
-    jobs: async () => {
-      return await Job.find().sort({ appliedDate: -1 });
-    },
-
-    // Get single job by id
-    job: async (_, { id }) => {
-      return await Job.findById(id);
-    },
+    jobs: async () => await Job.find().sort({ appliedDate: -1 }),
+    job: async (_, { id }) => await Job.findById(id),
   },
-
   Mutation: {
-    // Add a new job application
-    addJob: async (_, args) => {
-      const job = await Job.create(args);
-      return job;
-    },
-
-    // Update job — used for status change (drag/drop) and editing
+    addJob: async (_, args) => await Job.create(args),
     updateJob: async (_, { id, ...updates }) => {
       const job = await Job.findByIdAndUpdate(
         id,
@@ -30,8 +16,6 @@ export const resolvers = {
       if (!job) throw new Error("Job not found");
       return job;
     },
-
-    // Delete a job
     deleteJob: async (_, { id }) => {
       const job = await Job.findByIdAndDelete(id);
       if (!job) throw new Error("Job not found");
@@ -39,3 +23,5 @@ export const resolvers = {
     },
   },
 };
+
+module.exports = { resolvers };

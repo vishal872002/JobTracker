@@ -1,4 +1,6 @@
-export const typeDefs = `#graphql
+const { gql } = require("graphql-tag");
+
+const typeDefs = gql`
   type Job {
     _id: ID!
     company: String!
@@ -36,3 +38,5 @@ export const typeDefs = `#graphql
     deleteJob(id: ID!): String!
   }
 `;
+
+module.exports = { typeDefs };
