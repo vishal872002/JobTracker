@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { useQuery, useMutation } from "@apollo/client/react";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_JOBS, ADD_JOB, UPDATE_JOB, DELETE_JOB } from "../services/queries";
 
 const JobContext = createContext();
