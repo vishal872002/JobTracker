@@ -20,7 +20,7 @@ A full-stack kanban board to track job applications — built with the MERN stac
 
 ## Overview
 
-Job hunting is messy — applications scattered across LinkedIn, Naukri, and company portals with no single view of where things stand. JobAppTracker brings everything into one place with a clean kanban board so you always know what's applied, what's in interview, and what's been offered or rejected.
+Job hunting is messy! — applications scattered across LinkedIn, Naukri, and company portals with no single view of where things stand. JobAppTracker brings everything into one place with a clean kanban board so you always know what's applied, what's in interview, and what's been offered or rejected.
 
 ---
 
@@ -74,7 +74,6 @@ JobAppTracker/
 │       │   ├── apolloClient.js         # Apollo Client setup
 │       │   └── queries.js              # All GQL queries & mutations
 │       ├── App.js
-│       ├── App.css
 │       ├── index.js
 │       └── index.css
 └── server/
