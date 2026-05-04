@@ -31,7 +31,6 @@ Job hunting is messy! — applications scattered across LinkedIn, Naukri, and co
 - Add company name, role, JD link, and notes per application
 - Stats dashboard — total applications, interview count, offer count, response rate
 - Single GraphQL endpoint handling all queries and mutations
-- Dark blue theme with fully responsive layout
 
 ---
 
@@ -39,9 +38,9 @@ Job hunting is messy! — applications scattered across LinkedIn, Naukri, and co
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18, Apollo Client, dnd-kit, Create React App |
+| Frontend | React 18, Apollo Client, dnd-kit |
 | Backend | Node.js, Apollo Server, GraphQL |
-| Database | MongoDB Atlas, Mongoose |
+| Database | MongoDB Atlas |
 | Deployment | Azure Static Web Apps, Azure App Service |
 | State Management | React Context API |
 
