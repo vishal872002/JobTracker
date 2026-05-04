@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client/core";
 
 const client = new ApolloClient({
   uri: process.env.NODE_ENV === "production"
