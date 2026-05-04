@@ -29,7 +29,9 @@ export function JobProvider({ children }) {
   const editJob = (id, fields) => updateJobMutation({ variables: { id, ...fields } });
 
   const removeJob = (id) => deleteJobMutation({ variables: { id } });
-
+console.log("Jobs data:", data);
+console.log("Jobs loading:", loading);
+console.log("Jobs error:", error);
   return (
     <JobContext.Provider
       value={{
